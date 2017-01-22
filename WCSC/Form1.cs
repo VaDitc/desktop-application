@@ -151,5 +151,11 @@ namespace WCSC
             else
                 Application.Exit();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            WeightInformation w = new WeightInformation();
+            w.Show();
+        }
     }
 }
