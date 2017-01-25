@@ -284,8 +284,9 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(202, 30);
             this.button4.TabIndex = 3;
-            this.button4.Text = "Диагностика";
+            this.button4.Text = "Экран текущего состояния секции";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -299,6 +300,7 @@
             this.button5.TabIndex = 4;
             this.button5.Text = "Администрирование";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 

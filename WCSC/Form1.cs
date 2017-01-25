@@ -154,8 +154,19 @@ namespace WCSC
 
         private void button2_Click(object sender, EventArgs e)
         {
+           
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
             WeightInformation w = new WeightInformation();
-            w.Show();
+            w.ShowDialog();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Settings s = new Settings();
+                s.ShowDialog();
         }
     }
 }

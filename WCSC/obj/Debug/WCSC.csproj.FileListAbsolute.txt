@@ -35,3 +35,4 @@ C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debu
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.Properties.Resources.resources
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.csproj.GenerateResource.Cache
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.WeightInformation.resources
+C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.Settings.resources
