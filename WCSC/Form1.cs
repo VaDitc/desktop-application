@@ -19,6 +19,8 @@ namespace WCSC
     {
         public Form1()
         {
+            Check_Connection_with_Controllers ck = new Check_Connection_with_Controllers();
+            ck.ShowDialog();
             InitializeComponent();
             StartShowTime();
             TestDrawGraph();
