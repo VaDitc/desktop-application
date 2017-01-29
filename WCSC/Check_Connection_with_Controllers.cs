@@ -61,6 +61,7 @@ namespace WCSC
                             fail_connection.Visible = true;
                             good_conection.Visible = false;
                             preloader1.Visible = false;
+                            button1.Enabled = true;
                         });
                         return;
                     }
@@ -115,6 +116,7 @@ namespace WCSC
                         fail_connection.Visible = true;
                         good_conection.Visible = false;
                         preloader1.Visible = false;
+                        button1.Enabled = true;
                     });
                 }
 
@@ -127,6 +129,7 @@ namespace WCSC
                         fail_connection.Visible = false;
                         good_conection.Visible = true;
                         preloader1.Visible = false;
+                        button1.Enabled = true;
                     });
                 }
             }

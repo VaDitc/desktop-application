@@ -30,66 +30,94 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Check_Connection_with_Controllers));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.preloader1 = new System.Windows.Forms.PictureBox();
+            this.good_conection = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.good_conection = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.fail_connection = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.error_con = new System.Windows.Forms.PictureBox();
-            this.good_con = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.preloader1 = new System.Windows.Forms.PictureBox();
-            this.preloader2 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.infosec = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.preloader1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.good_conection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.good_conection)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fail_connection)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.error_con)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.good_con)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.preloader1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.preloader2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.groupBox2);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.infosec);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(505, 279);
+            this.panel1.Size = new System.Drawing.Size(505, 182);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // label1
+            // button1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(11, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(385, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Проверка соеденения с весовыми контролерами...";
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Enabled = false;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(414, 141);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "OK";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.preloader1);
+            this.groupBox1.Controls.Add(this.good_conection);
+            this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Controls.Add(this.pictureBox2);
+            this.groupBox1.Controls.Add(this.pictureBox4);
+            this.groupBox1.Controls.Add(this.pictureBox3);
+            this.groupBox1.Controls.Add(this.fail_connection);
+            this.groupBox1.Location = new System.Drawing.Point(14, 26);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(475, 85);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            // 
+            // preloader1
+            // 
+            this.preloader1.Image = ((System.Drawing.Image)(resources.GetObject("preloader1.Image")));
+            this.preloader1.Location = new System.Drawing.Point(222, 24);
+            this.preloader1.Name = "preloader1";
+            this.preloader1.Size = new System.Drawing.Size(39, 39);
+            this.preloader1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.preloader1.TabIndex = 9;
+            this.preloader1.TabStop = false;
+            // 
+            // good_conection
+            // 
+            this.good_conection.Image = ((System.Drawing.Image)(resources.GetObject("good_conection.Image")));
+            this.good_conection.Location = new System.Drawing.Point(222, 24);
+            this.good_conection.Name = "good_conection";
+            this.good_conection.Size = new System.Drawing.Size(39, 39);
+            this.good_conection.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.good_conection.TabIndex = 7;
+            this.good_conection.TabStop = false;
+            this.good_conection.Visible = false;
             // 
             // pictureBox1
             // 
@@ -111,16 +139,6 @@
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(158, 34);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(32, 21);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
-            // 
             // pictureBox4
             // 
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
@@ -131,32 +149,15 @@
             this.pictureBox4.TabIndex = 4;
             this.pictureBox4.TabStop = false;
             // 
-            // groupBox1
+            // pictureBox3
             // 
-            this.groupBox1.Controls.Add(this.preloader1);
-            this.groupBox1.Controls.Add(this.good_conection);
-            this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Controls.Add(this.pictureBox2);
-            this.groupBox1.Controls.Add(this.pictureBox4);
-            this.groupBox1.Controls.Add(this.pictureBox3);
-            this.groupBox1.Controls.Add(this.fail_connection);
-            this.groupBox1.Location = new System.Drawing.Point(14, 36);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(475, 85);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Секция 1";
-            // 
-            // good_conection
-            // 
-            this.good_conection.Image = ((System.Drawing.Image)(resources.GetObject("good_conection.Image")));
-            this.good_conection.Location = new System.Drawing.Point(222, 24);
-            this.good_conection.Name = "good_conection";
-            this.good_conection.Size = new System.Drawing.Size(39, 39);
-            this.good_conection.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.good_conection.TabIndex = 7;
-            this.good_conection.TabStop = false;
-            this.good_conection.Visible = false;
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(158, 34);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(32, 21);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
             // 
             // fail_connection
             // 
@@ -169,122 +170,48 @@
             this.fail_connection.TabStop = false;
             this.fail_connection.Visible = false;
             // 
-            // button1
+            // label1
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(414, 241);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(11, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(385, 16);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Проверка соеденения с весовыми контролерами...";
             // 
-            // groupBox2
+            // infosec
             // 
-            this.groupBox2.Controls.Add(this.preloader2);
-            this.groupBox2.Controls.Add(this.error_con);
-            this.groupBox2.Controls.Add(this.good_con);
-            this.groupBox2.Controls.Add(this.pictureBox7);
-            this.groupBox2.Controls.Add(this.pictureBox8);
-            this.groupBox2.Controls.Add(this.pictureBox9);
-            this.groupBox2.Controls.Add(this.pictureBox10);
-            this.groupBox2.Location = new System.Drawing.Point(14, 139);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(475, 85);
-            this.groupBox2.TabIndex = 8;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Секция 2";
+            this.infosec.AutoSize = true;
+            this.infosec.Location = new System.Drawing.Point(11, 124);
+            this.infosec.Name = "infosec";
+            this.infosec.Size = new System.Drawing.Size(255, 13);
+            this.infosec.TabIndex = 8;
+            this.infosec.Text = "Соединение не установлено с такими секциями:";
             // 
-            // error_con
+            // label2
             // 
-            this.error_con.Image = ((System.Drawing.Image)(resources.GetObject("error_con.Image")));
-            this.error_con.Location = new System.Drawing.Point(222, 24);
-            this.error_con.Name = "error_con";
-            this.error_con.Size = new System.Drawing.Size(39, 39);
-            this.error_con.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.error_con.TabIndex = 8;
-            this.error_con.TabStop = false;
-            this.error_con.Visible = false;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 150);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(0, 13);
+            this.label2.TabIndex = 9;
             // 
-            // good_con
+            // label3
             // 
-            this.good_con.Image = ((System.Drawing.Image)(resources.GetObject("good_con.Image")));
-            this.good_con.Location = new System.Drawing.Point(222, 24);
-            this.good_con.Name = "good_con";
-            this.good_con.Size = new System.Drawing.Size(39, 39);
-            this.good_con.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.good_con.TabIndex = 7;
-            this.good_con.TabStop = false;
-            this.good_con.Visible = false;
-            // 
-            // pictureBox7
-            // 
-            this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
-            this.pictureBox7.Location = new System.Drawing.Point(79, 29);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox7.TabIndex = 1;
-            this.pictureBox7.TabStop = false;
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
-            this.pictureBox8.Location = new System.Drawing.Point(373, 29);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox8.TabIndex = 2;
-            this.pictureBox8.TabStop = false;
-            // 
-            // pictureBox9
-            // 
-            this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
-            this.pictureBox9.Location = new System.Drawing.Point(294, 34);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(32, 21);
-            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox9.TabIndex = 4;
-            this.pictureBox9.TabStop = false;
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
-            this.pictureBox10.Location = new System.Drawing.Point(158, 34);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(32, 21);
-            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox10.TabIndex = 3;
-            this.pictureBox10.TabStop = false;
-            // 
-            // preloader1
-            // 
-            this.preloader1.Image = ((System.Drawing.Image)(resources.GetObject("preloader1.Image")));
-            this.preloader1.Location = new System.Drawing.Point(222, 24);
-            this.preloader1.Name = "preloader1";
-            this.preloader1.Size = new System.Drawing.Size(39, 39);
-            this.preloader1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.preloader1.TabIndex = 9;
-            this.preloader1.TabStop = false;
-            // 
-            // preloader2
-            // 
-            this.preloader2.Image = ((System.Drawing.Image)(resources.GetObject("preloader2.Image")));
-            this.preloader2.Location = new System.Drawing.Point(222, 24);
-            this.preloader2.Name = "preloader2";
-            this.preloader2.Size = new System.Drawing.Size(39, 39);
-            this.preloader2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.preloader2.TabIndex = 10;
-            this.preloader2.TabStop = false;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(14, 150);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(10, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "-";
             // 
             // Check_Connection_with_Controllers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(505, 279);
+            this.ClientSize = new System.Drawing.Size(505, 182);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Check_Connection_with_Controllers";
@@ -293,24 +220,15 @@
             this.Load += new System.EventHandler(this.Check_Connection_with_Controllers_Load_1);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.good_conection)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fail_connection)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.error_con)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.good_con)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.preloader1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.preloader2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.good_conection)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fail_connection)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -327,14 +245,9 @@
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.PictureBox error_con;
-        private System.Windows.Forms.PictureBox good_con;
-        private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.PictureBox pictureBox9;
-        private System.Windows.Forms.PictureBox pictureBox10;
-        private System.Windows.Forms.PictureBox preloader2;
         private System.Windows.Forms.PictureBox preloader1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label infosec;
     }
 }
