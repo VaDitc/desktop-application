@@ -17,6 +17,7 @@ namespace WCSC
 {
     public partial class Form1 : Form
     {
+        List<Device> device_list = null;
         public Form1()
         {
             Check_Connection_with_Controllers ck = new Check_Connection_with_Controllers();
@@ -24,11 +25,12 @@ namespace WCSC
             InitializeComponent();
             StartShowTime();
             TestDrawGraph();
+            device_list = Check_Connection_with_Controllers.device_list;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+           
         }
 
         private void StartShowTime()
@@ -167,6 +169,7 @@ namespace WCSC
 
         private void button5_Click(object sender, EventArgs e)
         {
+           
             Settings s = new Settings();
                 s.ShowDialog();
         }

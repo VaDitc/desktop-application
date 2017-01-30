@@ -14,11 +14,13 @@ namespace WCSC
 {
     public partial class Check_Connection_with_Controllers : Form
     {
-        System.Net.Sockets.TcpClient clientSocket = new System.Net.Sockets.TcpClient();
+        //System.Net.Sockets.TcpClient clientSocket = new System.Net.Sockets.TcpClient();
         //поток чтения-записи
-        NetworkStream serverStream = default(NetworkStream);
-        Thread ctThread;
+        //NetworkStream serverStream = default(NetworkStream);
+
+        public static List<Device> device_list = new List<Device>();
         Thread cConnect;
+       
 
         public Check_Connection_with_Controllers()
         {
@@ -31,98 +33,102 @@ namespace WCSC
         {
             cConnect = new Thread(Chek_Connection);
             cConnect.Start();
-            
+           
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            cConnect.Abort();
             this.Close();
         }
 
         private void Chek_Connection()
         {
+            scalesEntities bd = new scalesEntities();
+            List<ScalesInformation> test = null;
             try
             {
-                if (!clientSocket.Connected)//если нет соединения
+                IQueryable<ScalesInformation> query = bd.ScalesInformation;
+                test = query.ToList();
+                this.Invoke((MethodInvoker)delegate
                 {
-                    clientSocket = new System.Net.Sockets.TcpClient();//получаем сокет
-                    //clientSocket.Connect("192.168.0.191", 9761);
-                    //подключаемся к ІР и порту, введенных в текстовые поля
-                   
+                    bd_error.Visible = false;
+                    bd_ok.Visible = true;
+                    bd_load.Visible = false;
+                    button1.Enabled = false;
+                });
+            }
+            catch (Exception)
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    bd_error.Visible = true;
+                    bd_ok.Visible = false;
+                    bd_load.Visible = false;
+                    button1.Enabled = false;
+                });
+            }
+
+            if (test != null)
+            {
+                bool connection_controll = false;
+                string device_error_connect = "";
+                foreach (var item in test)
+                {
+                    TcpClient clientSocket = new TcpClient();
+                    NetworkStream serverStream = default(NetworkStream);
                     try
                     {
-                        clientSocket.Connect("192.168.0.191", 9761);
+                        clientSocket.Connect(item.IPaddress, 9761);
                         serverStream = clientSocket.GetStream();
+                        clientSocket.ReceiveBufferSize = 8192;
+                        
+                        String[] message = new String[] { item.ModbusID, "03", "00", "29", "00", "01", "55", "C2" };
+                        Byte[] mes = new Byte[128];         //переменная, которая будет содержать данные для отправки
+                        int i = 0;                      // счетчик
+
+                        for (i = 0; i < 8; i++)
+                        {
+
+                            mes[i] = StrHexToByte(message[i]);
+
+                        }
+
+                        serverStream.Write(mes, 0, 8);
+                        serverStream.Flush();
+
+                        serverStream = clientSocket.GetStream();            //получаем поток
+                        int buffSize = 0;
+                        int bytesRead = 0;
+                        byte[] inStream = new byte[10025];                  // инициализируем массив для приема данных
+                        buffSize = clientSocket.ReceiveBufferSize;          //получаем размер буфера
+                        serverStream.ReadTimeout = 1000;
+                        bytesRead = serverStream.Read(inStream, 0, buffSize);//считываем данные из потока
+
+                        if (bytesRead > 0)
+                        {
+                            Device dev = new Device(clientSocket,serverStream,item.IPaddress,item.ModbusID,"Секция № " + item.Scales_Number);
+                            device_list.Add(dev); 
+                        }
                     }
                     catch (Exception)
                     {
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            fail_connection.Visible = true;
-                            good_conection.Visible = false;
-                            preloader1.Visible = false;
-                            button1.Enabled = true;
-                        });
-                        return;
+                        connection_controll = true;
+                        device_error_connect += " № " + item.Scales_Number; 
                     }
-                    
-                    //получаем поток
-                    clientSocket.ReceiveBufferSize = 8192;
-                    //выставляем размер буфера - 8192 байта
-                    ctThread = new Thread(sendMessage);
-                    //создаем поток, в котором будет происходит прием данных и запускаем его
-                    ctThread.Start();
                 }
-            }
-            catch (Exception ex)//если подключение не удалось - выводим сообщение об ошибке
-            {
-                
-            }
-        }
-
-        private void sendMessage()
-        {
-            if (clientSocket.Connected)     // если соединение установлено
-            {
-                String[] message = new String[] { "01", "03", "00", "29", "00", "01", "55", "C2" };
-                Byte[] mes = new Byte[128];         //переменная, которая будет содержать данные для отправки
-                int i = 0;                      // счетчик
-
-                for (i = 0; i < 8; i++)
+                if (connection_controll == true)
                 {
-                   
-                    mes[i] = StrHexToByte(message[i]); 
-                                                                                  
-                }
-
-                serverStream.Write(mes, 0, 8);
-                serverStream.Flush();
-
-                serverStream = clientSocket.GetStream();            //получаем поток
-                int buffSize = 0;
-                int bytesRead = 0;
-                byte[] inStream = new byte[10025];                  // инициализируем массив для приема данных
-                buffSize = clientSocket.ReceiveBufferSize;          //получаем размер буфера
-                serverStream.ReadTimeout = 1000;
-                try
-                {
-                    bytesRead = serverStream.Read(inStream, 0, buffSize);//считываем данные из потока
-                }
-                catch (Exception)
-                {
-
                     this.Invoke((MethodInvoker)delegate
                     {
                         fail_connection.Visible = true;
                         good_conection.Visible = false;
                         preloader1.Visible = false;
                         button1.Enabled = true;
+                        label3.Text = device_error_connect;
                     });
                 }
-
-                //string message = "";
-
-                if (bytesRead > 0)
+                else
                 {
                     this.Invoke((MethodInvoker)delegate
                     {
@@ -133,9 +139,12 @@ namespace WCSC
                     });
                 }
             }
+            else
+            {
+                return;
+            }        
         }
 
-        
         private byte StrHexToByte(string sHex)
         {
             try

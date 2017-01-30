@@ -41,3 +41,4 @@ C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\bin\Debu
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\bin\Debug\EntityFramework.xml
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\bin\Debug\ru\EntityFramework.resources.dll
