@@ -19,6 +19,7 @@ namespace WCSC
         //NetworkStream serverStream = default(NetworkStream);
 
         public static List<Device> device_list = new List<Device>();
+        public static scalesEntities bd = new scalesEntities();
         Thread cConnect;
        
 
@@ -44,7 +45,7 @@ namespace WCSC
 
         private void Chek_Connection()
         {
-            scalesEntities bd = new scalesEntities();
+            
             List<ScalesInformation> test = null;
             try
             {
@@ -73,6 +74,7 @@ namespace WCSC
             {
                 bool connection_controll = false;
                 string device_error_connect = "";
+                device_error_connect += "<";
                 foreach (var item in test)
                 {
                     TcpClient clientSocket = new TcpClient();
@@ -114,11 +116,12 @@ namespace WCSC
                     catch (Exception)
                     {
                         connection_controll = true;
-                        device_error_connect += " № " + item.Scales_Number; 
+                        device_error_connect += " №" + item.Scales_Number + " "; 
                     }
                 }
                 if (connection_controll == true)
                 {
+                    device_error_connect += ">";
                     this.Invoke((MethodInvoker)delegate
                     {
                         fail_connection.Visible = true;

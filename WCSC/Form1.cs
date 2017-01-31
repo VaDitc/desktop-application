@@ -173,5 +173,11 @@ namespace WCSC
             Settings s = new Settings();
                 s.ShowDialog();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            archive form_arhive = new archive();
+            form_arhive.Show();
+        }
     }
 }

@@ -74,6 +74,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="archive.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="archive.Designer.cs">
+      <DependentUpon>archive.cs</DependentUpon>
+    </Compile>
     <Compile Include="Check_Connection_with_Controllers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +140,9 @@
     <Compile Include="WeightInformation.Designer.cs">
       <DependentUpon>WeightInformation.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="archive.resx">
+      <DependentUpon>archive.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Check_Connection_with_Controllers.resx">
       <DependentUpon>Check_Connection_with_Controllers.cs</DependentUpon>
     </EmbeddedResource>
