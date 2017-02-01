@@ -21,7 +21,7 @@ namespace WCSC
         public Form1()
         {
             Check_Connection_with_Controllers ck = new Check_Connection_with_Controllers();
-            ck.ShowDialog();
+            //ck.ShowDialog();
             InitializeComponent();
             StartShowTime();
             TestDrawGraph();
@@ -65,7 +65,7 @@ namespace WCSC
                 new ColumnSeries
                 {
                     Title = "Вес:",
-                    Values = new ChartValues<double> { 124.4, 128.6, 39, 50, 122, 18.6, 87.6, 1.6, 128.6, 128.6, 12, 8.6, 188.6, 128.6 },
+                    Values = new ChartValues<double> { 124.4, 125.6, 39, 50, 122},
                     DataLabels = true
                 }
             };
@@ -73,12 +73,12 @@ namespace WCSC
 
 
             //also adding values updates and animates the chart automatically
-            cartesianChart1.Series[0].Values.Add(48d);
+            //cartesianChart1.Series[0].Values.Add(48d);
 
             cartesianChart1.AxisX.Add(new Axis
             {
-                Title = "Номер Секции",
-                Labels = new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" },
+                Title = "Номер весов",
+                Labels = new[] { "1", "2", "3", "4", "5"},
                 Separator = new Separator
                 {
                     Step = 1
@@ -90,7 +90,7 @@ namespace WCSC
 
             cartesianChart1.AxisY.Add(new Axis
             {
-                Title = "Общий вес по секциям",
+                Title = "Общий вес по весам",
                 LabelFormatter = value => value.ToString("N"),
                 Separator = new Separator(),
                
@@ -105,7 +105,7 @@ namespace WCSC
                 new ColumnSeries
                 {
                     Title = "Вес:",
-                    Values = new ChartValues<double> { 124.4, 128.6, 39, 50, 122, 18.6, 87.6, 1.6, 128.6 },
+                    Values = new ChartValues<double> { 124.4, 125.6, 39, 50, 122},
                     DataLabels = true
                 }
             };
@@ -113,12 +113,12 @@ namespace WCSC
 
 
             //also adding values updates and animates the chart automatically
-            cartesianChart2.Series[0].Values.Add(48d);
+            //cartesianChart2.Series[0].Values.Add(48d);
 
             cartesianChart2.AxisX.Add(new Axis
             {
-                Title = "Номер Секции",
-                Labels = new[] { "16", "17", "18", "19", "20", "21", "22", "23", "24", "25" },
+                Title = "Номер весов",
+                Labels = new[] { "6", "7", "8", "9", "10"},
                 Separator = new Separator
                 {
                     Step = 1,
@@ -131,7 +131,7 @@ namespace WCSC
 
             cartesianChart2.AxisY.Add(new Axis
             {
-                Title = "Общий вес по секциям",
+                Title = "Общий вес по весам",
                 LabelFormatter = value => value.ToString("N"),
                 Separator = new Separator(),
                 
