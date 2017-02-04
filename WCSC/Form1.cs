@@ -18,14 +18,21 @@ namespace WCSC
     public partial class Form1 : Form
     {
         List<Device> device_list = null;
+        int Count_WEIGHT = 0;
+        scalesEntities bd = Check_Connection_with_Controllers.bd;
+
+
         public Form1()
         {
             Check_Connection_with_Controllers ck = new Check_Connection_with_Controllers();
-            //ck.ShowDialog();
+            ck.Show();
             InitializeComponent();
             StartShowTime();
             TestDrawGraph();
             device_list = Check_Connection_with_Controllers.device_list;
+            IQueryable<ScalesInformation> query =  bd.ScalesInformation;
+            Count_WEIGHT = query.Count();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -39,6 +46,34 @@ namespace WCSC
             timer1.Tick += new EventHandler(timer1_tick);
             timer1.Interval = 100;
             timer1.Start();
+
+            Timer timer2 = new Timer();
+            timer2.Tick += new EventHandler(timer2_tick);
+            timer2.Interval = 100;
+            timer2.Start();
+
+        }
+
+        public void timer2_tick(object sender, EventArgs e)
+        {
+            DateTime ThToday = DateTime.Now;
+            string shift_day_start = "08:00:00";
+            string shift_day_end = "20:00:00";
+            TimeSpan dt_day = TimeSpan.Parse(shift_day_start);
+            TimeSpan dt_end = TimeSpan.Parse(shift_day_end);
+
+
+            if (ThToday.TimeOfDay > dt_day && ThToday.TimeOfDay < dt_end)
+            {
+                textBox2.Text = "1-я смена. День";
+                
+
+            }
+            else
+            {
+                textBox2.Text = "2-я смена. Ночь";
+                
+            }
         }
 
         public void timer1_tick(object sender, EventArgs e)
@@ -46,6 +81,13 @@ namespace WCSC
             DateTime ThToday = DateTime.Now;
             string ThData = ThToday.ToString();
             this.textBox1.Text = ThData;
+            
+
+            
+
+            
+            //IQueryable<ScalesInformation> query = bd.ScalesInformation;
+            //test = query.ToList();
         }
 
         private void groupBox2_Enter(object sender, EventArgs e)
