@@ -140,6 +140,11 @@ namespace WCSC
             }
         }
 
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void StartShowTimeDate()
         {
             Timer timer1 = new Timer();
