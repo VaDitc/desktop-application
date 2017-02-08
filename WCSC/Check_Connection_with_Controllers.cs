@@ -14,12 +14,13 @@ namespace WCSC
 {
     public partial class Check_Connection_with_Controllers : Form
     {
+        DateTime dt = DateTime.Now;
         //System.Net.Sockets.TcpClient clientSocket = new System.Net.Sockets.TcpClient();
         //поток чтения-записи
         //NetworkStream serverStream = default(NetworkStream);
 
         public static List<Device> device_list = new List<Device>();
-        public static scalesEntities bd = new scalesEntities();
+        public static scalesEntities1 bd = new scalesEntities1();
         Thread cConnect;
        
 

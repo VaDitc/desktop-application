@@ -87,6 +87,7 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Программа контроля работы комплекса весов конвейерных тензометрических";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -250,6 +251,7 @@
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -258,12 +260,13 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(201, 30);
             this.button2.TabIndex = 1;
-            this.button2.Text = "ОБНОВИТЬ";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Text = "Накопленый вес за час";
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -272,8 +275,8 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(201, 30);
             this.button3.TabIndex = 2;
-            this.button3.Text = "ВСТАВКА";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Text = "Накопленый вес за сутки";
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
@@ -314,11 +317,12 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(201, 31);
             this.button6.TabIndex = 5;
-            this.button6.Text = "Накопленный вес за смену";
+            this.button6.Text = "Отчеты";
             this.button6.UseVisualStyleBackColor = true;
             // 
             // button7
             // 
+            this.button7.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -328,7 +332,8 @@
             this.button7.Size = new System.Drawing.Size(201, 31);
             this.button7.TabIndex = 6;
             this.button7.Text = "Накопленный вес за месяц";
-            this.button7.UseVisualStyleBackColor = true;
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 

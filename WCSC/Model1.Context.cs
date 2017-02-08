@@ -13,10 +13,10 @@ namespace WCSC
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class scalesEntities : DbContext
+    public partial class scalesEntities1 : DbContext
     {
-        public scalesEntities()
-            : base("name=scalesEntities")
+        public scalesEntities1()
+            : base("name=scalesEntities1")
         {
         }
     
@@ -30,6 +30,7 @@ namespace WCSC
         public virtual DbSet<DataByMonth> DataByMonth { get; set; }
         public virtual DbSet<DataByShift> DataByShift { get; set; }
         public virtual DbSet<MeasurementData> MeasurementData { get; set; }
+        public virtual DbSet<Personnel> Personnel { get; set; }
         public virtual DbSet<ScalesInformation> ScalesInformation { get; set; }
     }
 }

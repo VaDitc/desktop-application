@@ -12,11 +12,23 @@ using LiveCharts.Wpf;
 using LiveCharts.WinForms;
 using System.Windows.Media;
 using Brushes = System.Windows.Media.Brushes;
+using System.Net.Sockets;
 
 namespace WCSC
 {
     public partial class Form1 : Form
     {
+        // Объявляем делегат
+        public delegate void DataChangeHandler();
+        // Событие, возникающее при выводе денег
+        public static event DataChangeHandler AllGraphRefresh;
+
+        // Объявляем делегат
+        public delegate void DataChangeFORwi(double weightReal, double powerReal);
+        // Событие, возникающее при выводе денег
+        public static event DataChangeFORwi DataLive;
+
+
         List<Device> device_list = null;
         int Count_WEIGHT = 0;
         //scalesEntities bd = Check_Connection_with_Controllers.bd;
@@ -26,10 +38,15 @@ namespace WCSC
         List<string> chart1DataX = new List<string>();
         List<string> chart2DataX = new List<string>();
 
+        // FOR CONTROLLER
+
+
+        //
+
         public Form1()
         {
             Check_Connection_with_Controllers ck = new Check_Connection_with_Controllers();
-            //ck.Show();
+            ck.ShowDialog();
             InitializeComponent();
             StartShowTime();
            
@@ -38,6 +55,9 @@ namespace WCSC
 
 
             cartesianChart1.DisableAnimations = true;
+
+            // FOR CONTROLLER
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -48,7 +68,7 @@ namespace WCSC
         private void Get_Info_Data_shit()
         {
             cartesianChart1.DisableAnimations = true;
-            scalesEntities bd = new scalesEntities();
+            scalesEntities1 bd = new scalesEntities1();
             IQueryable<ScalesInformation> query = bd.ScalesInformation;
             Count_WEIGHT = query.Count();
             IQueryable<DataByShift> query_data_shift = bd.DataByShift.OrderByDescending(x => x.ID).Take(Count_WEIGHT).OrderBy(x => x.ID);
@@ -68,6 +88,16 @@ namespace WCSC
             timer2.Tick += new EventHandler(timer2_tick);
             timer2.Interval = 100;
             timer2.Start();
+
+            Timer timer3 = new Timer();
+            timer3.Tick += new EventHandler(timer3_tick);
+            timer3.Interval = 1000;
+            timer3.Start();
+
+            Timer timer4 = new Timer();
+            timer4.Tick += new EventHandler(timer4_tick);
+            timer4.Interval = 1000;
+            timer4.Start();
 
         }
 
@@ -107,6 +137,14 @@ namespace WCSC
             //test = query.ToList();
         }
 
+        public void timer3_tick(object sender, EventArgs e)
+        {
+            //InsertData();
+            //if (AllGraphRefresh != null)
+             //   AllGraphRefresh();
+
+        }
+
         private void groupBox2_Enter(object sender, EventArgs e)
         {
 
@@ -121,20 +159,20 @@ namespace WCSC
         {
             Random r = new Random();
             Random WP = new Random();
-            scalesEntities bd = new scalesEntities();
-            MeasurementData a = null;
-            try
-            {
-                a = bd.MeasurementData.OrderByDescending(e => e.ID).First();
-            }
-            catch (Exception)
-            {
-                a = new MeasurementData();
-                a.ID = 0; 
-            }
+            scalesEntities1 bd = new scalesEntities1();
+           // MeasurementData a = null;
+            //try
+            //{
+            //    a = bd.MeasurementData.OrderByDescending(e => e.ID).First();
+            //}
+            //catch (Exception)
+            //{
+            //    a = new MeasurementData();
+            //    a.ID = 0; 
+            //}
             
             MeasurementData inf1 = new MeasurementData();
-            inf1.ID = a.ID + 1;
+            //inf1.ID = a.ID + 1;
             inf1.ScalesNumberID = 1;
             inf1.CurrentSpeed = r.Next(3, 6);
             inf1.CurrentWeight = WP.Next(10, 55);
@@ -143,7 +181,7 @@ namespace WCSC
             bd.MeasurementData.Add(inf1);
 
             MeasurementData inf2 = new MeasurementData();
-            inf2.ID = a.ID + 2;
+            //inf2.ID = a.ID + 2;
             inf2.ScalesNumberID = 2;
             inf2.CurrentSpeed = r.Next(3, 6);
             inf2.CurrentWeight = WP.Next(10, 55);
@@ -152,7 +190,7 @@ namespace WCSC
             bd.MeasurementData.Add(inf2);
 
             MeasurementData inf3 = new MeasurementData();
-            inf3.ID = a.ID + 3;
+            //inf3.ID = a.ID + 3;
             inf3.ScalesNumberID = 3;
             inf3.CurrentSpeed = r.Next(3, 6);
             inf3.CurrentWeight = WP.Next(10, 55);
@@ -170,7 +208,7 @@ namespace WCSC
             chart2DataX.Clear();
             chart1DataY.Clear();
             chart2DataY.Clear();
-            scalesEntities bd = new scalesEntities();
+            scalesEntities1 bd = new scalesEntities1();
             IQueryable<ScalesInformation> query = bd.ScalesInformation;
             Count_WEIGHT = query.Count();
             IQueryable<DataByShift> query_data_shift = bd.DataByShift.OrderByDescending(x => x.ID).Take(Count_WEIGHT).OrderBy(x => x.ID);
@@ -396,7 +434,9 @@ namespace WCSC
 
         private void button2_Click(object sender, EventArgs e)
         {
-            RefreshGraph();
+            WeightHour wh = new WeightHour();
+            wh.Show();
+            //RefreshGraph();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -420,7 +460,218 @@ namespace WCSC
 
         private void button3_Click(object sender, EventArgs e)
         {
-            InsertData();
+            WeightDay wd = new WeightDay();
+            wd.Show();
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            WeightMonth wm = new WeightMonth();
+            wm.Show();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // FOR CONTROLLER
+
+        private void timer4_tick(object sender, EventArgs e)
+        {
+
+            Get_info_async();
+        }
+
+        private async void Get_info_async()
+        {
+            await GetInfo();
+        }
+
+        private async Task GetInfo()
+        {
+            foreach (var item in device_list)
+            {
+                NetworkStream serverStream = default(NetworkStream);
+                try
+                {
+                    //clientSocket.Connect(item.device_ip, 9761);
+                    serverStream = item.clientSocket.GetStream();
+
+                    String[] message = new String[] { item.device_number, "03", "00", "12", "00", "02", "64", "0E" };
+                    Byte[] mes = new Byte[128];         //переменная, которая будет содержать данные для отправки
+                    int i = 0;                      // счетчик
+
+                    for (i = 0; i < 8; i++)
+                    {
+
+                        mes[i] = StrHexToByte(message[i]);
+
+                    }
+
+                    serverStream.Write(mes, 0, 8);
+                    serverStream.Flush();
+
+                    serverStream = item.clientSocket.GetStream();            //получаем поток
+                    int buffSize = 0;
+                    int bytesRead = 0;
+                    byte[] inStream = new byte[10025];                  // инициализируем массив для приема данных
+                    buffSize = item.clientSocket.ReceiveBufferSize;          //получаем размер буфера
+                    bytesRead = serverStream.Read(inStream, 0, buffSize);//считываем данные из потока
+
+                    if (bytesRead > 0)
+                    {
+                        string answer_Weight = "";
+                        string answer_Power = "";
+                        for (int j = 3; j < 7; j++)
+                        {
+                            answer_Weight = answer_Weight + ByteToStrHex(inStream[j]);
+                            //формируем сообщения для вывода в ListView в 16-ричном виде
+                        }
+                        for (int z = 7; z < 11; z++)
+                        {
+                            answer_Power = answer_Power + ByteToStrHex(inStream[z]);
+                            //формируем сообщения для вывода в ListView в 16-ричном виде
+                        }
+                        int weight_geter = int.Parse(answer_Weight,System.Globalization.NumberStyles.AllowHexSpecifier);
+                        double REALY_WEIGHT_VARIABLE = weight_geter * 0.001;
+
+                        int power_geter = int.Parse(answer_Power, System.Globalization.NumberStyles.AllowHexSpecifier);
+                        double REALY_POWER_VARIABLE = weight_geter * 0.001;
+
+                        if (REALY_WEIGHT_VARIABLE < 0)
+                        {
+                            REALY_WEIGHT_VARIABLE = 0;
+                        }
+
+                        if (REALY_POWER_VARIABLE < 0)
+                        {
+                            REALY_POWER_VARIABLE = 0;
+                        }
+                        if (DataLive != null)
+                            DataLive(REALY_WEIGHT_VARIABLE,REALY_POWER_VARIABLE);
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+        }
+
+        private byte StrHexToByte(string sHex)
+        {
+            try
+            {
+                byte ret = 0;
+                //bNoError = true;
+
+                string hxH = "";
+                string hxL = "";
+                if (sHex.Length == 2)
+                {
+                    hxH = sHex.Substring(0, 1);
+                    hxL = sHex.Substring(1, 1);
+                }
+                else if (sHex.Length == 1)
+                {
+                    hxL = sHex.Substring(0, 1);
+                }
+                else
+                {
+                    //bNoError = false;
+                    return 0;
+                }
+
+                if (hxH == "0") ret = 0;
+                else if (hxH == "1") ret = 16;
+                else if (hxH == "2") ret = 16 * 2;
+                else if (hxH == "3") ret = 16 * 3;
+                else if (hxH == "4") ret = 16 * 4;
+                else if (hxH == "5") ret = 16 * 5;
+                else if (hxH == "6") ret = 16 * 6;
+                else if (hxH == "7") ret = 16 * 7;
+                else if (hxH == "8") ret = 16 * 8;
+                else if (hxH == "9") ret = 16 * 9;
+                else if (hxH == "A" || hxH == "a") ret = 16 * 10;
+                else if (hxH == "B" || hxH == "b") ret = 16 * 11;
+                else if (hxH == "C" || hxH == "c") ret = 16 * 12;
+                else if (hxH == "D" || hxH == "d") ret = 16 * 13;
+                else if (hxH == "E" || hxH == "e") ret = 16 * 14;
+                else if (hxH == "F" || hxH == "f") ret = 16 * 15;
+
+                if (hxL == "0") ret += 0;
+                else if (hxL == "1") ret += 1;
+                else if (hxL == "2") ret += 2;
+                else if (hxL == "3") ret += 3;
+                else if (hxL == "4") ret += 4;
+                else if (hxL == "5") ret += 5;
+                else if (hxL == "6") ret += 6;
+                else if (hxL == "7") ret += 7;
+                else if (hxL == "8") ret += 8;
+                else if (hxL == "9") ret += 9;
+                else if (hxL == "A" || hxL == "a") ret += 10;
+                else if (hxL == "B" || hxL == "b") ret += 11;
+                else if (hxL == "C" || hxL == "c") ret += 12;
+                else if (hxL == "D" || hxL == "d") ret += 13;
+                else if (hxL == "E" || hxL == "e") ret += 14;
+                else if (hxL == "F" || hxL == "f") ret += 15;
+                else
+                {
+                    //bNoError = false;
+                    return 0;
+                }
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                //bNoError = false;
+                return 0;
+            }
+        }
+
+        private string ByteToStrHex(byte b)
+        {
+            try
+            {
+                int iTmpH = b / (byte)16;
+                int iTmpL = b % (byte)16;
+                string ret = "";
+
+                if (iTmpH < 10)
+                    ret = iTmpH.ToString();
+                else
+                {
+                    if (iTmpH == 10) ret = "A";
+                    if (iTmpH == 11) ret = "B";
+                    if (iTmpH == 12) ret = "C";
+                    if (iTmpH == 13) ret = "D";
+                    if (iTmpH == 14) ret = "E";
+                    if (iTmpH == 15) ret = "F";
+                }
+
+                if (iTmpL < 10)
+                    ret += iTmpL.ToString();
+                else
+                {
+                    if (iTmpL == 10) ret += "A";
+                    if (iTmpL == 11) ret += "B";
+                    if (iTmpL == 12) ret += "C";
+                    if (iTmpL == 13) ret += "D";
+                    if (iTmpL == 14) ret += "E";
+                    if (iTmpL == 15) ret += "F";
+                }
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return "";
+            }
+        }
+
+        // END FOR CONTROLLER
     }
 }

@@ -12,13 +12,13 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" />
           <Property Name="Weight" Type="float" />
-          <Property Name="ScaleNumberID" Type="int" />
+          <Property Name="ScalesNumberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="DataByHours">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ScalesNumberID" Type="int" />
           <Property Name="Weight" Type="float" />
           <Property Name="Time" Type="time" Precision="7" />
@@ -28,7 +28,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ScalesNumberID" Type="int" />
           <Property Name="Weight" Type="float" />
           <Property Name="NumberMonth" Type="int" />
@@ -37,7 +37,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShiftNumber" Type="int" />
           <Property Name="ScalesNumberID" Type="int" />
           <Property Name="Weight" Type="float" />
@@ -48,12 +48,20 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ScalesNumberID" Type="int" />
           <Property Name="CurrentSpeed" Type="float" />
           <Property Name="CurrentWeight" Type="float" />
           <Property Name="CurrentProductivity" Type="float" />
           <Property Name="TimeOfMeasurement" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Personnel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ScalesInformation">
           <Key>
@@ -66,14 +74,14 @@
           <Property Name="ModbusID" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_DataByDays_ScalesInformation">
-          <End Role="ScalesInformation" Type="Self.ScalesInformation" Multiplicity="0..1" />
+          <End Role="ScalesInformation" Type="Self.ScalesInformation" Multiplicity="1" />
           <End Role="DataByDays" Type="Self.DataByDays" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ScalesInformation">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="DataByDays">
-              <PropertyRef Name="ScaleNumberID" />
+              <PropertyRef Name="ScalesNumberID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -131,6 +139,7 @@
           <EntitySet Name="DataByMonth" EntityType="Self.DataByMonth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DataByShift" EntityType="Self.DataByShift" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MeasurementData" EntityType="Self.MeasurementData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personnel" EntityType="Self.Personnel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScalesInformation" EntityType="Self.ScalesInformation" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_DataByDays_ScalesInformation" Association="Self.FK_DataByDays_ScalesInformation">
             <End Role="ScalesInformation" EntitySet="ScalesInformation" />
@@ -165,14 +174,14 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Weight" Type="Double" />
-          <Property Name="ScaleNumberID" Type="Int32" />
+          <Property Name="ScalesNumberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="ScalesInformation" Relationship="Self.FK_DataByDays_ScalesInformation" FromRole="DataByDays" ToRole="ScalesInformation" />
         </EntityType>
         <EntityType Name="DataByHours">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ScalesNumberID" Type="Int32" />
           <Property Name="Weight" Type="Double" />
           <Property Name="Time" Type="Time" Precision="7" />
@@ -183,7 +192,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ScalesNumberID" Type="Int32" />
           <Property Name="Weight" Type="Double" />
           <Property Name="NumberMonth" Type="Int32" />
@@ -193,7 +202,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ShiftNumber" Type="Int32" />
           <Property Name="ScalesNumberID" Type="Int32" />
           <Property Name="Weight" Type="Double" />
@@ -205,13 +214,21 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ScalesNumberID" Type="Int32" />
           <Property Name="CurrentSpeed" Type="Double" />
           <Property Name="CurrentWeight" Type="Double" />
           <Property Name="CurrentProductivity" Type="Double" />
           <Property Name="TimeOfMeasurement" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ScalesInformation" Relationship="Self.FK_MeasurementData_ScalesInformation" FromRole="MeasurementData" ToRole="ScalesInformation" />
+        </EntityType>
+        <EntityType Name="Personnel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ScalesInformation">
           <Key>
@@ -229,14 +246,14 @@
           <NavigationProperty Name="MeasurementData" Relationship="Self.FK_MeasurementData_ScalesInformation" FromRole="ScalesInformation" ToRole="MeasurementData" />
         </EntityType>
         <Association Name="FK_DataByDays_ScalesInformation">
-          <End Role="ScalesInformation" Type="Self.ScalesInformation" Multiplicity="0..1" />
+          <End Role="ScalesInformation" Type="Self.ScalesInformation" Multiplicity="1" />
           <End Role="DataByDays" Type="Self.DataByDays" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ScalesInformation">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="DataByDays">
-              <PropertyRef Name="ScaleNumberID" />
+              <PropertyRef Name="ScalesNumberID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -288,12 +305,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="scalesEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="scalesEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DataByDays" EntityType="Self.DataByDays" />
           <EntitySet Name="DataByHours" EntityType="Self.DataByHours" />
           <EntitySet Name="DataByMonth" EntityType="Self.DataByMonth" />
           <EntitySet Name="DataByShift" EntityType="Self.DataByShift" />
           <EntitySet Name="MeasurementData" EntityType="Self.MeasurementData" />
+          <EntitySet Name="Personnel" EntityType="Self.Personnel" />
           <EntitySet Name="ScalesInformation" EntityType="Self.ScalesInformation" />
           <AssociationSet Name="FK_DataByDays_ScalesInformation" Association="Self.FK_DataByDays_ScalesInformation">
             <End Role="ScalesInformation" EntitySet="ScalesInformation" />
@@ -321,14 +339,14 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище scalesModelContainer" CdmEntityContainer="scalesEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище scalesModelContainer" CdmEntityContainer="scalesEntities1">
           <EntitySetMapping Name="DataByDays">
             <EntityTypeMapping TypeName="scalesModel.DataByDays">
               <MappingFragment StoreEntitySet="DataByDays">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="ScaleNumberID" ColumnName="ScaleNumberID" />
+                <ScalarProperty Name="ScalesNumberID" ColumnName="ScalesNumberID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -374,6 +392,15 @@
                 <ScalarProperty Name="CurrentWeight" ColumnName="CurrentWeight" />
                 <ScalarProperty Name="CurrentProductivity" ColumnName="CurrentProductivity" />
                 <ScalarProperty Name="TimeOfMeasurement" ColumnName="TimeOfMeasurement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personnel">
+            <EntityTypeMapping TypeName="scalesModel.Personnel">
+              <MappingFragment StoreEntitySet="Personnel">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

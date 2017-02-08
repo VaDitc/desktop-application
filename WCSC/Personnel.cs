@@ -12,13 +12,10 @@ namespace WCSC
     using System;
     using System.Collections.Generic;
     
-    public partial class DataByDays
+    public partial class Personnel
     {
         public int ID { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<double> Weight { get; set; }
-        public int ScalesNumberID { get; set; }
-    
-        public virtual ScalesInformation ScalesInformation { get; set; }
+        public string Name { get; set; }
+        public string Password { get; set; }
     }
 }
