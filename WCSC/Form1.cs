@@ -46,7 +46,7 @@ namespace WCSC
         public Form1()
         {
             Check_Connection_with_Controllers ck = new Check_Connection_with_Controllers();
-            ck.ShowDialog();
+            //ck.ShowDialog();
             InitializeComponent();
             StartShowTime();
            
@@ -670,6 +670,12 @@ namespace WCSC
                 MessageBox.Show(ex.Message);
                 return "";
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            PrintReport pr = new PrintReport();
+            pr.Show();
         }
 
         // END FOR CONTROLLER

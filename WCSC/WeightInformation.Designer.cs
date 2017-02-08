@@ -53,19 +53,13 @@
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
+            this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -74,7 +68,6 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            this.tableLayoutPanel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -148,10 +141,9 @@
             // tableLayoutPanel3
             // 
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel11, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel9, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 3);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel7, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel11, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel9, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             // 
             // tableLayoutPanel11
@@ -248,24 +240,13 @@
             // tableLayoutPanel5
             // 
             resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
-            this.tableLayoutPanel5.Controls.Add(this.textBox3, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.textBox4, 1, 1);
-            this.tableLayoutPanel5.Controls.Add(this.textBox5, 1, 2);
-            this.tableLayoutPanel5.Controls.Add(this.textBox6, 1, 3);
-            this.tableLayoutPanel5.Controls.Add(this.textBox7, 1, 4);
-            this.tableLayoutPanel5.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.label5, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.label6, 0, 2);
-            this.tableLayoutPanel5.Controls.Add(this.label7, 0, 3);
-            this.tableLayoutPanel5.Controls.Add(this.label8, 0, 4);
+            this.tableLayoutPanel5.Controls.Add(this.textBox4, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.label5, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.textBox5, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label6, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.textBox6, 1, 2);
+            this.tableLayoutPanel5.Controls.Add(this.label7, 0, 2);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            // 
-            // textBox3
-            // 
-            resources.ApplyResources(this.textBox3, "textBox3");
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
             // 
             // textBox4
             // 
@@ -288,23 +269,6 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
             // 
-            // textBox7
-            // 
-            resources.ApplyResources(this.textBox7, "textBox7");
-            this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
-            // 
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
@@ -315,11 +279,6 @@
             resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
             // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
             // button1
             // 
             resources.ApplyResources(this.button1, "button1");
@@ -327,16 +286,10 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // tableLayoutPanel7
+            // label5
             // 
-            resources.ApplyResources(this.tableLayoutPanel7, "tableLayoutPanel7");
-            this.tableLayoutPanel7.Controls.Add(this.cartesianChart1, 0, 0);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            // 
-            // cartesianChart1
-            // 
-            resources.ApplyResources(this.cartesianChart1, "cartesianChart1");
-            this.cartesianChart1.Name = "cartesianChart1";
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
             // 
             // WeightInformation
             // 
@@ -358,7 +311,6 @@
             this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
-            this.tableLayoutPanel7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -386,21 +338,15 @@
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-        private LiveCharts.WinForms.CartesianChart cartesianChart1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
         private LiveCharts.WinForms.CartesianChart cartesianChart3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private LiveCharts.WinForms.CartesianChart cartesianChart2;
+        private System.Windows.Forms.Label label5;
     }
 }
