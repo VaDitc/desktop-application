@@ -59,6 +59,7 @@
     <EntitySetMapping Name="Personnel">
       <EntityTypeMapping TypeName="scalesModel.Personnel">
         <MappingFragment StoreEntitySet="Personnel">
+          <ScalarProperty Name="Role" ColumnName="Role" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Password" ColumnName="Password" />

@@ -4,10 +4,10 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Date" Type="datetime" />
     <Property Name="Weight" Type="float" />
-    <Property Name="ScalesNumberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ScalesNumberID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
   </EntityType>
   <EntityType Name="DataByHours">
     <Key>
@@ -54,15 +54,16 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Role" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ScalesInformation">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Scales_Number" Type="nvarchar" MaxLength="50" />
     <Property Name="Max_Productivity" Type="float" />
     <Property Name="IPaddress" Type="nvarchar" MaxLength="50" />

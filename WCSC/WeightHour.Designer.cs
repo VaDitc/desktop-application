@@ -36,12 +36,12 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
-            this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -155,6 +155,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "1-я очередь";
             // 
+            // cartesianChart1
+            // 
+            this.cartesianChart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cartesianChart1.Location = new System.Drawing.Point(3, 16);
+            this.cartesianChart1.Name = "cartesianChart1";
+            this.cartesianChart1.Size = new System.Drawing.Size(830, 206);
+            this.cartesianChart1.TabIndex = 0;
+            this.cartesianChart1.Text = "cartesianChart1";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.cartesianChart2);
@@ -165,6 +174,15 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "2-я очередь";
+            // 
+            // cartesianChart2
+            // 
+            this.cartesianChart2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cartesianChart2.Location = new System.Drawing.Point(3, 16);
+            this.cartesianChart2.Name = "cartesianChart2";
+            this.cartesianChart2.Size = new System.Drawing.Size(830, 207);
+            this.cartesianChart2.TabIndex = 0;
+            this.cartesianChart2.Text = "cartesianChart2";
             // 
             // tableLayoutPanel4
             // 
@@ -185,6 +203,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.Location = new System.Drawing.Point(555, 7);
@@ -192,7 +211,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(283, 43);
             this.button1.TabIndex = 3;
-            this.button1.Text = "Закрыть окно";
+            this.button1.Text = "Вернутся в главное окно";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -206,24 +225,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
-            // 
-            // cartesianChart1
-            // 
-            this.cartesianChart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cartesianChart1.Location = new System.Drawing.Point(3, 16);
-            this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(830, 206);
-            this.cartesianChart1.TabIndex = 0;
-            this.cartesianChart1.Text = "cartesianChart1";
-            // 
-            // cartesianChart2
-            // 
-            this.cartesianChart2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cartesianChart2.Location = new System.Drawing.Point(3, 16);
-            this.cartesianChart2.Name = "cartesianChart2";
-            this.cartesianChart2.Size = new System.Drawing.Size(830, 207);
-            this.cartesianChart2.TabIndex = 0;
-            this.cartesianChart2.Text = "cartesianChart2";
             // 
             // WeightHour
             // 

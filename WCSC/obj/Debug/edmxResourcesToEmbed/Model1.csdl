@@ -62,6 +62,7 @@
     <Property Name="ID" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="ScalesInformation">
     <Key>
