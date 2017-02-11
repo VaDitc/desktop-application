@@ -44,18 +44,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MeasurementData">
-      <EntityTypeMapping TypeName="scalesModel.MeasurementData">
-        <MappingFragment StoreEntitySet="MeasurementData">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="ScalesNumberID" ColumnName="ScalesNumberID" />
-          <ScalarProperty Name="CurrentSpeed" ColumnName="CurrentSpeed" />
-          <ScalarProperty Name="CurrentWeight" ColumnName="CurrentWeight" />
-          <ScalarProperty Name="CurrentProductivity" ColumnName="CurrentProductivity" />
-          <ScalarProperty Name="TimeOfMeasurement" ColumnName="TimeOfMeasurement" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Personnel">
       <EntityTypeMapping TypeName="scalesModel.Personnel">
         <MappingFragment StoreEntitySet="Personnel">
@@ -74,6 +62,17 @@
           <ScalarProperty Name="Max_Productivity" ColumnName="Max_Productivity" />
           <ScalarProperty Name="IPaddress" ColumnName="IPaddress" />
           <ScalarProperty Name="ModbusID" ColumnName="ModbusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MeasurementData">
+      <EntityTypeMapping TypeName="scalesModel.MeasurementData">
+        <MappingFragment StoreEntitySet="MeasurementData">
+          <ScalarProperty Name="TimeOfMeasurement" ColumnName="TimeOfMeasurement" />
+          <ScalarProperty Name="CurrentProductivity" ColumnName="CurrentProductivity" />
+          <ScalarProperty Name="CurrentWeight" ColumnName="CurrentWeight" />
+          <ScalarProperty Name="ScalesNumberID" ColumnName="ScalesNumberID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

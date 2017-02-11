@@ -13,6 +13,7 @@ namespace WCSC
 {
     public partial class Settings : Form
     {
+        public static bool kalibrovka = false;
         TreeNode delUser = null;
         TreeNode delDevice = null;
         string patternIP = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
@@ -22,6 +23,16 @@ namespace WCSC
             InitializeComponent();
             TreeUsers(3);
             DeviceInBD();
+            if (kalibrovka == true)
+            {
+                radioButton1.Checked = true;
+                radioButton2.Checked = false;
+            }
+            else
+            {
+                radioButton2.Checked = true;
+                radioButton1.Checked = false;
+            }
         }
 
         public void DeviceInBD()
@@ -83,9 +94,10 @@ namespace WCSC
         {
             if (radioButton1.Checked)
             {
+                kalibrovka = true;
                 pictureBoxON.Visible = true;
                 pictureBoxOFF.Visible = false;
-                MessageBox.Show("Режим КАЛИБРОВКИ - ВКЛЮЧЕН", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                //MessageBox.Show("Режим КАЛИБРОВКИ - ВКЛЮЧЕН", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }         
         }
 
@@ -93,9 +105,10 @@ namespace WCSC
         {
             if (radioButton2.Checked)
             {
+                kalibrovka = false;
                 pictureBoxON.Visible = false;
                 pictureBoxOFF.Visible = true;
-                MessageBox.Show("Режим КАЛИБРОВКИ - ВЫКЛЮЧЕН", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                //MessageBox.Show("Режим КАЛИБРОВКИ - ВЫКЛЮЧЕН", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
         }
 

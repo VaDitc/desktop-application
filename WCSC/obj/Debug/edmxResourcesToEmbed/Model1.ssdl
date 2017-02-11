@@ -45,7 +45,6 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ScalesNumberID" Type="int" />
-    <Property Name="CurrentSpeed" Type="float" />
     <Property Name="CurrentWeight" Type="float" />
     <Property Name="CurrentProductivity" Type="float" />
     <Property Name="TimeOfMeasurement" Type="datetime" />

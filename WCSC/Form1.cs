@@ -23,6 +23,7 @@ namespace WCSC
         // Событие, возникающее при выводе денег
         public static event DataChangeHandler AllGraphRefresh;
 
+        public static double WEIGHT_STATIC_SHIFT = 0;
         // Объявляем делегат
         public delegate void DataChangeFORwi(double weightReal, double powerReal);
         // Событие, возникающее при выводе денег
@@ -46,7 +47,7 @@ namespace WCSC
         public Form1()
         {
             Check_Connection_with_Controllers ck = new Check_Connection_with_Controllers();
-            //ck.ShowDialog();
+            ck.ShowDialog();
             InitializeComponent();
             StartShowTime();
            
@@ -55,14 +56,37 @@ namespace WCSC
 
 
             cartesianChart1.DisableAnimations = true;
-
+           
             // FOR CONTROLLER
-            
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
            
+        }
+
+        public void GetCRC16(byte[] message, ref byte[] CRC16)
+        {
+            ushort CRCFull = 0xFFFF;
+            byte CRCHigh = 0xFF, CRCLow = 0xFF;
+            char CRCLSB;
+
+            for (int i = 0; i < (message.Length); i++)
+            {
+                CRCFull = (ushort)(CRCFull ^ message[i]);
+                for (int j = 0; j < 8; j++)
+                {
+                    CRCLSB = (char)(CRCFull & 0x0001);
+                    CRCFull = (ushort)((CRCFull >> 1) & 0x7FFF);
+                    if (CRCLSB == 1)
+                    {
+                        CRCFull = (ushort)(CRCFull ^ 0xA001);
+                    }
+                }
+                CRC16[1] = CRCHigh = (byte)((CRCFull >> 8) & 0xFF);
+                CRC16[0] = CRCLow = (byte)(CRCFull & 0xFF);
+            }
         }
 
         private void Get_Info_Data_shit()
@@ -88,11 +112,6 @@ namespace WCSC
             timer2.Tick += new EventHandler(timer2_tick);
             timer2.Interval = 100;
             timer2.Start();
-
-            Timer timer3 = new Timer();
-            timer3.Tick += new EventHandler(timer3_tick);
-            timer3.Interval = 1000;
-            timer3.Start();
 
             Timer timer4 = new Timer();
             timer4.Tick += new EventHandler(timer4_tick);
@@ -137,13 +156,7 @@ namespace WCSC
             //test = query.ToList();
         }
 
-        public void timer3_tick(object sender, EventArgs e)
-        {
-            //InsertData();
-            //if (AllGraphRefresh != null)
-             //   AllGraphRefresh();
-
-        }
+      
 
         private void groupBox2_Enter(object sender, EventArgs e)
         {
@@ -153,52 +166,6 @@ namespace WCSC
         private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
         {
 
-        }
-
-        private void InsertData()
-        {
-            Random r = new Random();
-            Random WP = new Random();
-            scalesEntities1 bd = new scalesEntities1();
-           // MeasurementData a = null;
-            //try
-            //{
-            //    a = bd.MeasurementData.OrderByDescending(e => e.ID).First();
-            //}
-            //catch (Exception)
-            //{
-            //    a = new MeasurementData();
-            //    a.ID = 0; 
-            //}
-            
-            MeasurementData inf1 = new MeasurementData();
-            //inf1.ID = a.ID + 1;
-            inf1.ScalesNumberID = 1;
-            inf1.CurrentSpeed = r.Next(3, 6);
-            inf1.CurrentWeight = WP.Next(10, 55);
-            inf1.CurrentProductivity = WP.Next(100, 141);
-            inf1.TimeOfMeasurement = DateTime.Now;
-            bd.MeasurementData.Add(inf1);
-
-            MeasurementData inf2 = new MeasurementData();
-            //inf2.ID = a.ID + 2;
-            inf2.ScalesNumberID = 2;
-            inf2.CurrentSpeed = r.Next(3, 6);
-            inf2.CurrentWeight = WP.Next(10, 55);
-            inf2.CurrentProductivity = WP.Next(100, 141);
-            inf2.TimeOfMeasurement = DateTime.Now;
-            bd.MeasurementData.Add(inf2);
-
-            MeasurementData inf3 = new MeasurementData();
-            //inf3.ID = a.ID + 3;
-            inf3.ScalesNumberID = 3;
-            inf3.CurrentSpeed = r.Next(3, 6);
-            inf3.CurrentWeight = WP.Next(10, 55);
-            inf3.CurrentProductivity = WP.Next(100, 141);
-            inf3.TimeOfMeasurement = DateTime.Now;
-            bd.MeasurementData.Add(inf3);
-            bd.SaveChanges();
-            bd.Dispose();
         }
 
         private void RefreshGraph()
@@ -417,8 +384,7 @@ namespace WCSC
 
         private void button8_Click(object sender, EventArgs e)
         {
-                    Close();
-
+             Close();
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -479,17 +445,12 @@ namespace WCSC
 
         private void timer4_tick(object sender, EventArgs e)
         {
-
-            Get_info_async();
+            GetInfo();
         }
 
-        private async void Get_info_async()
+        private void GetInfo()
         {
-            await GetInfo();
-        }
-
-        private async Task GetInfo()
-        {
+           
             foreach (var item in device_list)
             {
                 NetworkStream serverStream = default(NetworkStream);
@@ -498,7 +459,13 @@ namespace WCSC
                     //clientSocket.Connect(item.device_ip, 9761);
                     serverStream = item.clientSocket.GetStream();
 
-                    String[] message = new String[] { item.device_number, "03", "00", "12", "00", "02", "64", "0E" };
+                    byte NumbDevice = byte.Parse(item.device_number);
+                    byte[] otvet = new byte[2];
+                    GetCRC16(new byte[] { NumbDevice, 3, 0, 18, 0, 2 }, ref otvet);
+                    string CRC_L = ByteToStrHex(otvet[0]);
+                    string CRC_H = ByteToStrHex(otvet[1]);
+
+                    String[] message = new String[] { item.device_number, "03", "00", "12", "00", "02", CRC_L, CRC_H };
                     Byte[] mes = new Byte[128];         //переменная, которая будет содержать данные для отправки
                     int i = 0;                      // счетчик
 
@@ -533,7 +500,7 @@ namespace WCSC
                             answer_Power = answer_Power + ByteToStrHex(inStream[z]);
                             //формируем сообщения для вывода в ListView в 16-ричном виде
                         }
-                        int weight_geter = int.Parse(answer_Weight,System.Globalization.NumberStyles.AllowHexSpecifier);
+                        int weight_geter = int.Parse(answer_Weight, System.Globalization.NumberStyles.AllowHexSpecifier);
                         double REALY_WEIGHT_VARIABLE = weight_geter * 0.001;
 
                         int power_geter = int.Parse(answer_Power, System.Globalization.NumberStyles.AllowHexSpecifier);
@@ -548,8 +515,29 @@ namespace WCSC
                         {
                             REALY_POWER_VARIABLE = 0;
                         }
-                        if (DataLive != null)
-                            DataLive(REALY_WEIGHT_VARIABLE,REALY_POWER_VARIABLE);
+                        WEIGHT_STATIC_SHIFT += REALY_POWER_VARIABLE;
+
+                        if (Settings.kalibrovka == false)
+                        {
+                            scalesEntities1 bd = new scalesEntities1();
+                            MeasurementData inf1 = new MeasurementData();
+                            inf1.ScalesNumberID = item.device_name;
+                            inf1.CurrentWeight = REALY_WEIGHT_VARIABLE;
+                            inf1.CurrentProductivity = REALY_POWER_VARIABLE;
+                            inf1.TimeOfMeasurement = DateTime.Now;
+                            bd.MeasurementData.Add(inf1);
+                            bd.SaveChanges();
+                            bd.Dispose();
+                            if (AllGraphRefresh != null)
+                                AllGraphRefresh();
+                        }
+
+                        if (item.device_name.ToString() == WeightInformation.CURRENT_DEVICE_COMBO)
+                        {
+                            if (DataLive != null)
+                                DataLive(REALY_WEIGHT_VARIABLE, REALY_POWER_VARIABLE);
+                        }
+
                     }
                 }
                 catch (Exception)

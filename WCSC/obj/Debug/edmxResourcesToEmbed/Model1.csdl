@@ -43,18 +43,6 @@
     <Property Name="EndTime" Type="DateTime" Precision="3" />
     <NavigationProperty Name="ScalesInformation" Relationship="Self.FK_ShiftData_ScalesInformation" FromRole="DataByShift" ToRole="ScalesInformation" />
   </EntityType>
-  <EntityType Name="MeasurementData">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ScalesNumberID" Type="Int32" />
-    <Property Name="CurrentSpeed" Type="Double" />
-    <Property Name="CurrentWeight" Type="Double" />
-    <Property Name="CurrentProductivity" Type="Double" />
-    <Property Name="TimeOfMeasurement" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="ScalesInformation" Relationship="Self.FK_MeasurementData_ScalesInformation" FromRole="MeasurementData" ToRole="ScalesInformation" />
-  </EntityType>
   <EntityType Name="Personnel">
     <Key>
       <PropertyRef Name="ID" />
@@ -77,7 +65,7 @@
     <NavigationProperty Name="DataByHours" Relationship="Self.FK_DataByHours_ScalesInformation" FromRole="ScalesInformation" ToRole="DataByHours" />
     <NavigationProperty Name="DataByMonth" Relationship="Self.FK_DataByMonth_ScalesInformation" FromRole="ScalesInformation" ToRole="DataByMonth" />
     <NavigationProperty Name="DataByShift" Relationship="Self.FK_ShiftData_ScalesInformation" FromRole="ScalesInformation" ToRole="DataByShift" />
-    <NavigationProperty Name="MeasurementData" Relationship="Self.FK_MeasurementData_ScalesInformation" FromRole="ScalesInformation" ToRole="MeasurementData" />
+    <NavigationProperty Name="MeasurementData" Relationship="scalesModel.FK_MeasurementData_ScalesInformation" FromRole="ScalesInformation" ToRole="MeasurementData" />
   </EntityType>
   <Association Name="FK_DataByDays_ScalesInformation">
     <End Role="ScalesInformation" Type="Self.ScalesInformation" Multiplicity="1" />
@@ -127,24 +115,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_MeasurementData_ScalesInformation">
-    <End Role="ScalesInformation" Type="Self.ScalesInformation" Multiplicity="0..1" />
-    <End Role="MeasurementData" Type="Self.MeasurementData" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ScalesInformation">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="MeasurementData">
-        <PropertyRef Name="ScalesNumberID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="scalesEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="DataByDays" EntityType="Self.DataByDays" />
     <EntitySet Name="DataByHours" EntityType="Self.DataByHours" />
     <EntitySet Name="DataByMonth" EntityType="Self.DataByMonth" />
     <EntitySet Name="DataByShift" EntityType="Self.DataByShift" />
-    <EntitySet Name="MeasurementData" EntityType="Self.MeasurementData" />
     <EntitySet Name="Personnel" EntityType="Self.Personnel" />
     <EntitySet Name="ScalesInformation" EntityType="Self.ScalesInformation" />
     <AssociationSet Name="FK_DataByDays_ScalesInformation" Association="Self.FK_DataByDays_ScalesInformation">
@@ -163,9 +138,33 @@
       <End Role="ScalesInformation" EntitySet="ScalesInformation" />
       <End Role="DataByShift" EntitySet="DataByShift" />
     </AssociationSet>
-    <AssociationSet Name="FK_MeasurementData_ScalesInformation" Association="Self.FK_MeasurementData_ScalesInformation">
+    <EntitySet Name="MeasurementData" EntityType="scalesModel.MeasurementData" />
+    <AssociationSet Name="FK_MeasurementData_ScalesInformation" Association="scalesModel.FK_MeasurementData_ScalesInformation">
       <End Role="ScalesInformation" EntitySet="ScalesInformation" />
       <End Role="MeasurementData" EntitySet="MeasurementData" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="MeasurementData">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ScalesNumberID" Type="Int32" />
+    <Property Name="CurrentWeight" Type="Double" />
+    <Property Name="CurrentProductivity" Type="Double" />
+    <Property Name="TimeOfMeasurement" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ScalesInformation" Relationship="scalesModel.FK_MeasurementData_ScalesInformation" FromRole="MeasurementData" ToRole="ScalesInformation" />
+  </EntityType>
+  <Association Name="FK_MeasurementData_ScalesInformation">
+    <End Type="scalesModel.ScalesInformation" Role="ScalesInformation" Multiplicity="0..1" />
+    <End Type="scalesModel.MeasurementData" Role="MeasurementData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ScalesInformation">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MeasurementData">
+        <PropertyRef Name="ScalesNumberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

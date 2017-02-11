@@ -44,6 +44,70 @@ namespace WCSC
             this.Close();
         }
 
+        public void GetCRC16(byte[] message, ref byte[] CRC16)
+        {
+            ushort CRCFull = 0xFFFF;
+            byte CRCHigh = 0xFF, CRCLow = 0xFF;
+            char CRCLSB;
+
+            for (int i = 0; i < (message.Length); i++)
+            {
+                CRCFull = (ushort)(CRCFull ^ message[i]);
+                for (int j = 0; j < 8; j++)
+                {
+                    CRCLSB = (char)(CRCFull & 0x0001);
+                    CRCFull = (ushort)((CRCFull >> 1) & 0x7FFF);
+                    if (CRCLSB == 1)
+                    {
+                        CRCFull = (ushort)(CRCFull ^ 0xA001);
+                    }
+                }
+                CRC16[1] = CRCHigh = (byte)((CRCFull >> 8) & 0xFF);
+                CRC16[0] = CRCLow = (byte)(CRCFull & 0xFF);
+            }
+        }
+
+        private string ByteToStrHex(byte b)
+        {
+            try
+            {
+                int iTmpH = b / (byte)16;
+                int iTmpL = b % (byte)16;
+                string ret = "";
+
+                if (iTmpH < 10)
+                    ret = iTmpH.ToString();
+                else
+                {
+                    if (iTmpH == 10) ret = "A";
+                    if (iTmpH == 11) ret = "B";
+                    if (iTmpH == 12) ret = "C";
+                    if (iTmpH == 13) ret = "D";
+                    if (iTmpH == 14) ret = "E";
+                    if (iTmpH == 15) ret = "F";
+                }
+
+                if (iTmpL < 10)
+                    ret += iTmpL.ToString();
+                else
+                {
+                    if (iTmpL == 10) ret += "A";
+                    if (iTmpL == 11) ret += "B";
+                    if (iTmpL == 12) ret += "C";
+                    if (iTmpL == 13) ret += "D";
+                    if (iTmpL == 14) ret += "E";
+                    if (iTmpL == 15) ret += "F";
+                }
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return "";
+            }
+        }
+
         private void Chek_Connection()
         {
             
@@ -76,48 +140,75 @@ namespace WCSC
                 bool connection_controll = false;
                 string device_error_connect = "";
                 device_error_connect += "<";
+                
                 foreach (var item in test)
                 {
+                    bool NoDevice = false;
                     TcpClient clientSocket = new TcpClient();
                     NetworkStream serverStream = default(NetworkStream);
                     try
                     {
-                        clientSocket.Connect(item.IPaddress, 9761);
+
+                        foreach (var dev in device_list)
+                        {
+                            if (item.IPaddress == dev.device_ip)
+                            {
+                                clientSocket = dev.clientSocket;
+                                //serverStream = dev.clientSocket.GetStream();
+                            }
+                            else
+                            {
+                                NoDevice = true;
+                            }
+                        }
+                        if (NoDevice == true || device_list.Count<1)
+                        {
+                            clientSocket.Connect(item.IPaddress, 9761);
+                            
+                        }
                         serverStream = clientSocket.GetStream();
                         clientSocket.ReceiveBufferSize = 8192;
+                            byte NumbDevice = byte.Parse(item.ModbusID);
+                            byte[] otvet = new byte[2];
+                            GetCRC16(new byte[] { NumbDevice, 3, 0, 41, 0, 1 }, ref otvet);
+                            string CRC_L = ByteToStrHex(otvet[0]);
+                            string CRC_H = ByteToStrHex(otvet[1]);
+
+
+                            String[] message = new String[] { item.ModbusID, "03", "00", "29", "00", "01", CRC_L, CRC_H };
+                            Byte[] mes = new Byte[128];         //переменная, которая будет содержать данные для отправки
+                            int i = 0;                      // счетчик
+
+                            for (i = 0; i < 8; i++)
+                            {
+
+                                mes[i] = StrHexToByte(message[i]);
+
+                            }
+
+                            serverStream.Write(mes, 0, 8);
+                            serverStream.Flush();
+
+                            serverStream = clientSocket.GetStream();            //получаем поток
+                            int buffSize = 0;
+                            int bytesRead = 0;
+                            byte[] inStream = new byte[10025];                  // инициализируем массив для приема данных
+                            buffSize = clientSocket.ReceiveBufferSize;          //получаем размер буфера
+                            serverStream.ReadTimeout = 1000;
+                            bytesRead = serverStream.Read(inStream, 0, buffSize);//считываем данные из потока
+
+                            if (bytesRead > 0)
+                            {
+                                Device dev = new Device(clientSocket, serverStream, item.IPaddress, item.ModbusID, item.ID);
+                                device_list.Add(dev);
+                            }
                         
-                        String[] message = new String[] { item.ModbusID, "03", "00", "29", "00", "01", "55", "C2" };
-                        Byte[] mes = new Byte[128];         //переменная, которая будет содержать данные для отправки
-                        int i = 0;                      // счетчик
-
-                        for (i = 0; i < 8; i++)
-                        {
-
-                            mes[i] = StrHexToByte(message[i]);
-
-                        }
-
-                        serverStream.Write(mes, 0, 8);
-                        serverStream.Flush();
-
-                        serverStream = clientSocket.GetStream();            //получаем поток
-                        int buffSize = 0;
-                        int bytesRead = 0;
-                        byte[] inStream = new byte[10025];                  // инициализируем массив для приема данных
-                        buffSize = clientSocket.ReceiveBufferSize;          //получаем размер буфера
-                        serverStream.ReadTimeout = 1000;
-                        bytesRead = serverStream.Read(inStream, 0, buffSize);//считываем данные из потока
-
-                        if (bytesRead > 0)
-                        {
-                            Device dev = new Device(clientSocket,serverStream,item.IPaddress,item.ModbusID,"Секция № " + item.Scales_Number);
-                            device_list.Add(dev); 
-                        }
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
+                        MessageBox.Show(e.Message,"");
                         connection_controll = true;
-                        device_error_connect += " №" + item.Scales_Number + " "; 
+                        device_error_connect += " №" + item.ID + " "; 
                     }
                 }
                 if (connection_controll == true)
@@ -214,7 +305,7 @@ namespace WCSC
 
                 return ret;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //bNoError = false;
                 return 0;

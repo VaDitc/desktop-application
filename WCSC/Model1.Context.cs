@@ -29,8 +29,8 @@ namespace WCSC
         public virtual DbSet<DataByHours> DataByHours { get; set; }
         public virtual DbSet<DataByMonth> DataByMonth { get; set; }
         public virtual DbSet<DataByShift> DataByShift { get; set; }
-        public virtual DbSet<MeasurementData> MeasurementData { get; set; }
         public virtual DbSet<Personnel> Personnel { get; set; }
         public virtual DbSet<ScalesInformation> ScalesInformation { get; set; }
+        public virtual DbSet<MeasurementData> MeasurementData { get; set; }
     }
 }

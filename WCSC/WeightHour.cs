@@ -264,5 +264,10 @@ namespace WCSC
             }
             bd.Dispose();
         }
+
+        private void WeightHour_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

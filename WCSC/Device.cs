@@ -14,9 +14,9 @@ namespace WCSC
         public NetworkStream serverStream = default(NetworkStream);
         public string device_ip = string.Empty;
         public string device_number = string.Empty;
-        public string device_name = string.Empty;
+        public int device_name;
 
-        public Device(TcpClient clientSockett, NetworkStream serverStreamm, string device_ipp, string device_numberr, string device_namee)
+        public Device(TcpClient clientSockett, NetworkStream serverStreamm, string device_ipp, string device_numberr, int device_namee)
         {
             clientSocket = clientSockett;
             serverStream = serverStreamm;

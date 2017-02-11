@@ -16,7 +16,6 @@ namespace WCSC
     {
         public int ID { get; set; }
         public Nullable<int> ScalesNumberID { get; set; }
-        public Nullable<double> CurrentSpeed { get; set; }
         public Nullable<double> CurrentWeight { get; set; }
         public Nullable<double> CurrentProductivity { get; set; }
         public Nullable<System.DateTime> TimeOfMeasurement { get; set; }
