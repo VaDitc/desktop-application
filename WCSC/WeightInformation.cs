@@ -39,10 +39,15 @@ namespace WCSC
             //The next code simulates data changes every 500 ms
         }
 
-        private void Form1_DataLive(double weightReal, double powerReal)
+        private void Form1_DataLive(double weightReal, double powerReal, double wHour, double wDay, double wMonth)
         {
-            textBox4.Text = Form1.WEIGHT_STATIC_SHIFT.ToString();
-            textBox5.Text = powerReal.ToString();
+            //textBox4.Text = Form1.WEIGHT_STATIC_SHIFT.ToString();
+            textBox4.Text = weightReal.ToString("F2");
+            textBox5.Text = powerReal.ToString("F2");
+
+            textBox8.Text = wHour.ToString("F2");
+            textBox9.Text = wDay.ToString("F2");
+            textBox10.Text = wMonth.ToString("F2");
 
             var now = System.DateTime.Now;
 
@@ -50,10 +55,11 @@ namespace WCSC
             {
                 Value = powerReal
             });
-
+            
             ChartValuesWEIGHT.Add(new MeasureModel
             {
-                Value = Form1.WEIGHT_STATIC_SHIFT
+                Value = weightReal
+                //Value = dbs.Weight.Value
             });
 
             lableX.Add(now.ToString("HH:mm:ss") + "\n" + now.ToString("dd.MM.yy"));
@@ -159,7 +165,7 @@ namespace WCSC
             cartesianChart3.AxisY.Add(new Axis
             {
                 Title = "Производительность, т/ч",
-                LabelFormatter = value => value.ToString("N"),
+                LabelFormatter = value => value.ToString("F4"),
                 Foreground = System.Windows.Media.Brushes.Black,
                 MinValue = 0
 
@@ -190,8 +196,8 @@ namespace WCSC
 
             cartesianChart2.AxisY.Add(new Axis
             {
-                Title = "Вес, т",
-                LabelFormatter = value => value.ToString("N"),
+                Title = "Вес, кг",
+                LabelFormatter = value => value.ToString("F2"),
                 Foreground = System.Windows.Media.Brushes.Black,
                 MinValue = 0
 

@@ -108,3 +108,4 @@ C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debu
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\RdlCompile.compiled
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.exe
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.pdb
+C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.csprojResolveAssemblyReference.cache

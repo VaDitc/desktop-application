@@ -234,6 +234,7 @@
             this.MinimumSize = new System.Drawing.Size(872, 645);
             this.Name = "WeightMonth";
             this.ShowIcon = false;
+            this.Load += new System.EventHandler(this.WeightMonth_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);

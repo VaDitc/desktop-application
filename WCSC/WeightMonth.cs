@@ -40,7 +40,7 @@ namespace WCSC
             scalesEntities1 bd = new scalesEntities1();
             IQueryable<ScalesInformation> query = bd.ScalesInformation;
             Count_WEIGHT = query.Count();
-            IQueryable<DataByMonth> query_data_month = bd.DataByMonth.OrderByDescending(x => x.ID).Take(Count_WEIGHT).OrderBy(x => x.ID);
+            IQueryable<DataByMonth> query_data_month = bd.DataByMonth.OrderByDescending(x => x.ID).Take(Check_Connection_with_Controllers.device_list.Count).OrderBy(x => x.ID);
             data_month = query_data_month.ToList();
             DrawGraph(data_month);
         }
@@ -202,7 +202,7 @@ namespace WCSC
             scalesEntities1 bd = new scalesEntities1();
             IQueryable<ScalesInformation> query = bd.ScalesInformation;
             Count_WEIGHT = query.Count();
-            IQueryable<DataByMonth> query_data_month = bd.DataByMonth.OrderByDescending(x => x.ID).Take(Count_WEIGHT).OrderBy(x => x.ID);
+            IQueryable<DataByMonth> query_data_month = bd.DataByMonth.OrderByDescending(x => x.ID).Take(Check_Connection_with_Controllers.device_list.Count).OrderBy(x => x.ID);
             List<DataByMonth> dm_info = query_data_month.ToList();
             if (Count_WEIGHT > 5)
             {
@@ -257,6 +257,11 @@ namespace WCSC
                 };
             }
             bd.Dispose();
+        }
+
+        private void WeightMonth_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

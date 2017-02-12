@@ -45,7 +45,7 @@ namespace WCSC
             scalesEntities1 bd = new scalesEntities1();
             IQueryable<ScalesInformation> query = bd.ScalesInformation;
             Count_WEIGHT = query.Count();
-            IQueryable<DataByHours> query_data_hour = bd.DataByHours.OrderByDescending(x => x.ID).Take(Count_WEIGHT).OrderBy(x => x.ID);
+            IQueryable<DataByHours> query_data_hour = bd.DataByHours.OrderByDescending(x => x.ID).Take(Check_Connection_with_Controllers.device_list.Count).OrderBy(x => x.ID);
             data_hour = query_data_hour.ToList();
             DrawGraph(data_hour);
 
@@ -155,6 +155,7 @@ namespace WCSC
                 {
                     Title = "Номер весов",
                     Labels = chart1DataX,
+                    MinValue = 0,
                     Separator = new Separator
                     {
                         Step = 1
@@ -208,7 +209,7 @@ namespace WCSC
             scalesEntities1 bd = new scalesEntities1();
             IQueryable<ScalesInformation> query = bd.ScalesInformation;
             Count_WEIGHT = query.Count();
-            IQueryable<DataByHours> query_data_hour = bd.DataByHours.OrderByDescending(x => x.ID).Take(Count_WEIGHT).OrderBy(x => x.ID);
+            IQueryable<DataByHours> query_data_hour = bd.DataByHours.OrderByDescending(x => x.ID).Take(Check_Connection_with_Controllers.device_list.Count).OrderBy(x => x.ID);
             List<DataByHours> dh_info = query_data_hour.ToList();
             if (Count_WEIGHT > 5)
             {

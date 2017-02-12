@@ -14,6 +14,7 @@ using System.Windows.Media;
 using Brushes = System.Windows.Media.Brushes;
 using System.Net.Sockets;
 
+
 namespace WCSC
 {
     public partial class Form1 : Form
@@ -25,7 +26,7 @@ namespace WCSC
 
         public static double WEIGHT_STATIC_SHIFT = 0;
         // Объявляем делегат
-        public delegate void DataChangeFORwi(double weightReal, double powerReal);
+        public delegate void DataChangeFORwi(double weightReal, double powerReal, double hour, double day, double month);
         // Событие, возникающее при выводе денег
         public static event DataChangeFORwi DataLive;
 
@@ -39,22 +40,17 @@ namespace WCSC
         List<string> chart1DataX = new List<string>();
         List<string> chart2DataX = new List<string>();
 
-        // FOR CONTROLLER
-
-
-        //
-
         public Form1()
         {
             Check_Connection_with_Controllers ck = new Check_Connection_with_Controllers();
-            ck.ShowDialog();
+            //ck.ShowDialog();
             InitializeComponent();
-            StartShowTime();
-           
+
+            //RefreshGraph();
             Get_Info_Data_shit();
             device_list = Check_Connection_with_Controllers.device_list;
 
-
+            StartShowTime();
             cartesianChart1.DisableAnimations = true;
            
             // FOR CONTROLLER
@@ -95,7 +91,7 @@ namespace WCSC
             scalesEntities1 bd = new scalesEntities1();
             IQueryable<ScalesInformation> query = bd.ScalesInformation;
             Count_WEIGHT = query.Count();
-            IQueryable<DataByShift> query_data_shift = bd.DataByShift.OrderByDescending(x => x.ID).Take(Count_WEIGHT).OrderBy(x => x.ID);
+            IQueryable<DataByShift> query_data_shift = bd.DataByShift.OrderByDescending(x => x.ID).Take(Check_Connection_with_Controllers.device_list.Count).OrderBy(x => x.ID);
             data_shift = query_data_shift.ToList();
             DrawGraph(data_shift);
             
@@ -103,15 +99,16 @@ namespace WCSC
 
         private void StartShowTime()
         {
-            Timer timer1 = new Timer();
+            System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
             timer1.Tick += new EventHandler(timer1_tick);
             timer1.Interval = 100;
             timer1.Start();
 
-            Timer timer2 = new Timer();
+            System.Windows.Forms.Timer timer2 = new System.Windows.Forms.Timer();
             timer2.Tick += new EventHandler(timer2_tick);
             timer2.Interval = 100;
             timer2.Start();
+
 
             Timer timer4 = new Timer();
             timer4.Tick += new EventHandler(timer4_tick);
@@ -154,9 +151,7 @@ namespace WCSC
             
             //IQueryable<ScalesInformation> query = bd.ScalesInformation;
             //test = query.ToList();
-        }
-
-      
+        }   
 
         private void groupBox2_Enter(object sender, EventArgs e)
         {
@@ -168,6 +163,8 @@ namespace WCSC
 
         }
 
+       
+
         private void RefreshGraph()
         {
             
@@ -178,7 +175,8 @@ namespace WCSC
             scalesEntities1 bd = new scalesEntities1();
             IQueryable<ScalesInformation> query = bd.ScalesInformation;
             Count_WEIGHT = query.Count();
-            IQueryable<DataByShift> query_data_shift = bd.DataByShift.OrderByDescending(x => x.ID).Take(Count_WEIGHT).OrderBy(x => x.ID);
+            //var ListDevRab = new List<int>() {1 };
+            IQueryable<DataByShift> query_data_shift = bd.DataByShift.OrderByDescending(x => x.ID).Take(device_list.Count).OrderBy(x => x.ID);
             List<DataByShift> ds_info = query_data_shift.ToList();
             if (Count_WEIGHT > 5)
             {
@@ -267,6 +265,7 @@ namespace WCSC
                 {
                     Title = "Номер весов",
                     Labels = chart1DataX,
+                    MinValue = 0,
                     Separator = new Separator
                     {
                         Step = 1
@@ -281,7 +280,8 @@ namespace WCSC
                     Title = "Общий вес по весам",
                     LabelFormatter = value => value.ToString("N"),
                     Separator = new Separator(),
-                    Foreground = Brushes.Black
+                    Foreground = Brushes.Black,
+                    MinValue = 0
                 });
 
                 cartesianChart2.Series = new SeriesCollection
@@ -303,6 +303,7 @@ namespace WCSC
                         Step = 1,
                         //Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0))
                     },
+                    MinValue = 0,
 
                     Foreground = Brushes.Black
 
@@ -313,7 +314,7 @@ namespace WCSC
                     Title = "Общий вес по весам",
                     LabelFormatter = value => value.ToString("N"),
                     Separator = new Separator(),
-
+                    MinValue = 0,
                     Foreground = Brushes.Black
                 });
 
@@ -321,7 +322,7 @@ namespace WCSC
             else
             {
                 foreach (var item in ds_info)
-                {
+                {                  
                     chart1DataY.Add(item.Weight.Value);
                     chart1DataX.Add(item.ScalesNumberID.ToString());
                 }
@@ -353,7 +354,8 @@ namespace WCSC
                     Title = "Общий вес по весам",
                     LabelFormatter = value => value.ToString("N"),
                     Separator = new Separator(),
-                    Foreground = Brushes.Black
+                    Foreground = Brushes.Black,
+                    MinValue = 0
                 });
 
                 cartesianChart2.AxisX.Add(new Axis
@@ -408,7 +410,7 @@ namespace WCSC
         private void button4_Click(object sender, EventArgs e)
         {
             WeightInformation w = new WeightInformation();
-            w.ShowDialog();
+            w.Show();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -450,7 +452,7 @@ namespace WCSC
 
         private void GetInfo()
         {
-           
+            
             foreach (var item in device_list)
             {
                 NetworkStream serverStream = default(NetworkStream);
@@ -461,11 +463,11 @@ namespace WCSC
 
                     byte NumbDevice = byte.Parse(item.device_number);
                     byte[] otvet = new byte[2];
-                    GetCRC16(new byte[] { NumbDevice, 3, 0, 18, 0, 2 }, ref otvet);
+                    GetCRC16(new byte[] { NumbDevice, 3, 0, 19, 0, 1 }, ref otvet);
                     string CRC_L = ByteToStrHex(otvet[0]);
                     string CRC_H = ByteToStrHex(otvet[1]);
 
-                    String[] message = new String[] { item.device_number, "03", "00", "12", "00", "02", CRC_L, CRC_H };
+                    String[] message = new String[] { item.device_number, "03", "00", "13", "00", "01", CRC_L, CRC_H };
                     Byte[] mes = new Byte[128];         //переменная, которая будет содержать данные для отправки
                     int i = 0;                      // счетчик
 
@@ -488,37 +490,32 @@ namespace WCSC
 
                     if (bytesRead > 0)
                     {
-                        string answer_Weight = "";
-                        string answer_Power = "";
-                        for (int j = 3; j < 7; j++)
-                        {
-                            answer_Weight = answer_Weight + ByteToStrHex(inStream[j]);
-                            //формируем сообщения для вывода в ListView в 16-ричном виде
-                        }
-                        for (int z = 7; z < 11; z++)
+
+
+                       string answer_Power = "";
+                        
+                        for (int z = 3; z < 7; z++)
                         {
                             answer_Power = answer_Power + ByteToStrHex(inStream[z]);
                             //формируем сообщения для вывода в ListView в 16-ричном виде
                         }
-                        int weight_geter = int.Parse(answer_Weight, System.Globalization.NumberStyles.AllowHexSpecifier);
-                        double REALY_WEIGHT_VARIABLE = weight_geter * 0.001;
+                        //int weight_geter = int.Parse(answer_Weight, System.Globalization.NumberStyles.AllowHexSpecifier);
+                        //double REALY_WEIGHT_VARIABLE = weight_geter * 0.001;
 
                         int power_geter = int.Parse(answer_Power, System.Globalization.NumberStyles.AllowHexSpecifier);
-                        double REALY_POWER_VARIABLE = weight_geter * 0.001;
+                        double REALY_POWER_VARIABLE = power_geter * 0.01;
 
-                        if (REALY_WEIGHT_VARIABLE < 0)
-                        {
-                            REALY_WEIGHT_VARIABLE = 0;
-                        }
 
                         if (REALY_POWER_VARIABLE < 0)
                         {
                             REALY_POWER_VARIABLE = 0;
                         }
-                        WEIGHT_STATIC_SHIFT += REALY_POWER_VARIABLE;
+                       
 
                         if (Settings.kalibrovka == false)
                         {
+
+                            double REALY_WEIGHT_VARIABLE = REALY_POWER_VARIABLE / 3.6;
                             scalesEntities1 bd = new scalesEntities1();
                             MeasurementData inf1 = new MeasurementData();
                             inf1.ScalesNumberID = item.device_name;
@@ -530,19 +527,36 @@ namespace WCSC
                             bd.Dispose();
                             if (AllGraphRefresh != null)
                                 AllGraphRefresh();
+                            RefreshGraph();
                         }
 
                         if (item.device_name.ToString() == WeightInformation.CURRENT_DEVICE_COMBO)
                         {
+
+                            scalesEntities1 bd = new scalesEntities1();
+                            DataByShift dbs = new DataByShift();
+                            DataByHours dbh = new DataByHours();
+                            DataByDays dbd = new DataByDays();
+                            DataByMonth dbm = new DataByMonth();
+
+                            int ee = int.Parse(WeightInformation.CURRENT_DEVICE_COMBO);
+                            dbs = bd.DataByShift.OrderByDescending(x => x.ID).Where(x => x.ScalesNumberID == ee).First();
+                            dbh = bd.DataByHours.OrderByDescending(x => x.ID).Where(x => x.ScalesNumberID == ee).First();
+                            dbd = bd.DataByDays.OrderByDescending(x => x.ID).Where(x => x.ScalesNumberID == ee).First();
+                            dbm = bd.DataByMonth.OrderByDescending(x => x.ID).Where(x => x.ScalesNumberID == ee).First();
+
+                            WEIGHT_STATIC_SHIFT = WEIGHT_STATIC_SHIFT + (REALY_POWER_VARIABLE / 3600);
+                            double REALY_WEIGHT_VARIABLE = REALY_POWER_VARIABLE / 3.6;
                             if (DataLive != null)
-                                DataLive(REALY_WEIGHT_VARIABLE, REALY_POWER_VARIABLE);
+                                DataLive(dbs.Weight.Value, REALY_POWER_VARIABLE, dbh.Weight.Value, dbd.Weight.Value, dbm.Weight.Value);
+                            //dbs.Weight.Value
                         }
 
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-
+                    MessageBox.Show(e.Message,"");
                 }
             }
         }

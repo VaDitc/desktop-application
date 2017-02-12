@@ -40,7 +40,7 @@ namespace WCSC
             scalesEntities1 bd = new scalesEntities1();
             IQueryable<ScalesInformation> query = bd.ScalesInformation;
             Count_WEIGHT = query.Count();
-            IQueryable<DataByDays> query_data_day = bd.DataByDays.OrderByDescending(x => x.ID).Take(Count_WEIGHT).OrderBy(x => x.ID);
+            IQueryable<DataByDays> query_data_day = bd.DataByDays.OrderByDescending(x => x.ID).Take(Check_Connection_with_Controllers.device_list.Count).OrderBy(x => x.ID);
             data_day = query_data_day.ToList();
             DrawGraph(data_day);
         }
@@ -202,7 +202,7 @@ namespace WCSC
             scalesEntities1 bd = new scalesEntities1();
             IQueryable<ScalesInformation> query = bd.ScalesInformation;
             Count_WEIGHT = query.Count();
-            IQueryable<DataByDays> query_data_day = bd.DataByDays.OrderByDescending(x => x.ID).Take(Count_WEIGHT).OrderBy(x => x.ID);
+            IQueryable<DataByDays> query_data_day = bd.DataByDays.OrderByDescending(x => x.ID).Take(Check_Connection_with_Controllers.device_list.Count).OrderBy(x => x.ID);
             List<DataByDays> dd_info = query_data_day.ToList();
             if (Count_WEIGHT > 5)
             {
