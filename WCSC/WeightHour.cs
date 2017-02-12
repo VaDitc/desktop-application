@@ -97,7 +97,8 @@ namespace WCSC
                     Title = "Общий вес по весам",
                     LabelFormatter = value => value.ToString("N"),
                     Separator = new Separator(),
-                    Foreground = Brushes.Black
+                    Foreground = Brushes.Black,
+                    MinValue = 0
                 });
 
                 cartesianChart2.Series = new SeriesCollection
@@ -129,7 +130,7 @@ namespace WCSC
                     Title = "Общий вес по весам",
                     LabelFormatter = value => value.ToString("N"),
                     Separator = new Separator(),
-
+                    MinValue = 0,
                     Foreground = Brushes.Black
                 });
 
@@ -170,7 +171,8 @@ namespace WCSC
                     Title = "Общий вес по весам",
                     LabelFormatter = value => value.ToString("N"),
                     Separator = new Separator(),
-                    Foreground = Brushes.Black
+                    Foreground = Brushes.Black,
+                    MinValue = 0
                 });
 
                 cartesianChart2.AxisX.Add(new Axis

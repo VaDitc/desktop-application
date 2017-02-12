@@ -30,6 +30,7 @@ namespace WCSC
         // Событие, возникающее при выводе денег
         public static event DataChangeFORwi DataLive;
 
+        public static string USER = "dsguk";
 
         List<Device> device_list = null;
         int Count_WEIGHT = 0;
@@ -43,7 +44,7 @@ namespace WCSC
         public Form1()
         {
             Check_Connection_with_Controllers ck = new Check_Connection_with_Controllers();
-            //ck.ShowDialog();
+            ck.ShowDialog();
             InitializeComponent();
 
             //RefreshGraph();
@@ -452,22 +453,37 @@ namespace WCSC
 
         private void GetInfo()
         {
-            
-            foreach (var item in device_list)
+           
+            //List<Device> NoWork = new List<Device>();
+            for (int q= 0; q< device_list.Count; q++)
             {
                 NetworkStream serverStream = default(NetworkStream);
                 try
                 {
+                    bool NoDevice = false;
+                    TcpClient clientSocket = new TcpClient();
+                    foreach (var dev in device_list)
+                    {
+                        if (device_list[q].device_ip == dev.device_ip)
+                        {
+                            clientSocket = dev.clientSocket;
+                            //serverStream = dev.clientSocket.GetStream();
+                        }
+                        else
+                        {
+                            NoDevice = true;
+                        }
+                    }
                     //clientSocket.Connect(item.device_ip, 9761);
-                    serverStream = item.clientSocket.GetStream();
+                    serverStream = device_list[q].clientSocket.GetStream();
 
-                    byte NumbDevice = byte.Parse(item.device_number);
+                    byte NumbDevice = byte.Parse(device_list[q].device_number);
                     byte[] otvet = new byte[2];
                     GetCRC16(new byte[] { NumbDevice, 3, 0, 19, 0, 1 }, ref otvet);
                     string CRC_L = ByteToStrHex(otvet[0]);
                     string CRC_H = ByteToStrHex(otvet[1]);
 
-                    String[] message = new String[] { item.device_number, "03", "00", "13", "00", "01", CRC_L, CRC_H };
+                    String[] message = new String[] { device_list[q].device_number, "03", "00", "13", "00", "01", CRC_L, CRC_H };
                     Byte[] mes = new Byte[128];         //переменная, которая будет содержать данные для отправки
                     int i = 0;                      // счетчик
 
@@ -481,12 +497,24 @@ namespace WCSC
                     serverStream.Write(mes, 0, 8);
                     serverStream.Flush();
 
-                    serverStream = item.clientSocket.GetStream();            //получаем поток
+                    serverStream = device_list[q].clientSocket.GetStream();            //получаем поток
                     int buffSize = 0;
                     int bytesRead = 0;
                     byte[] inStream = new byte[10025];                  // инициализируем массив для приема данных
-                    buffSize = item.clientSocket.ReceiveBufferSize;          //получаем размер буфера
-                    bytesRead = serverStream.Read(inStream, 0, buffSize);//считываем данные из потока
+                    buffSize = device_list[q].clientSocket.ReceiveBufferSize;          //получаем размер буфера
+
+                    try
+                    {
+                        bytesRead = serverStream.Read(inStream, 0, buffSize);//считываем данные из потока
+                        this.Text = "";
+                    }
+                    catch
+                    {
+                        this.Text = "Потеряно соединение с весами №" + device_list[q].device_name;
+                        //device_list.Remove(device_list[q]);
+                        continue;
+                    }
+                    
 
                     if (bytesRead > 0)
                     {
@@ -518,7 +546,7 @@ namespace WCSC
                             double REALY_WEIGHT_VARIABLE = REALY_POWER_VARIABLE / 3.6;
                             scalesEntities1 bd = new scalesEntities1();
                             MeasurementData inf1 = new MeasurementData();
-                            inf1.ScalesNumberID = item.device_name;
+                            inf1.ScalesNumberID = device_list[q].device_name;
                             inf1.CurrentWeight = REALY_WEIGHT_VARIABLE;
                             inf1.CurrentProductivity = REALY_POWER_VARIABLE;
                             inf1.TimeOfMeasurement = DateTime.Now;
@@ -530,7 +558,7 @@ namespace WCSC
                             RefreshGraph();
                         }
 
-                        if (item.device_name.ToString() == WeightInformation.CURRENT_DEVICE_COMBO)
+                        if (device_list[q].device_name.ToString() == WeightInformation.CURRENT_DEVICE_COMBO)
                         {
 
                             scalesEntities1 bd = new scalesEntities1();
@@ -556,7 +584,7 @@ namespace WCSC
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message,"");
+                    //MessageBox.Show(e.Message,"");
                 }
             }
         }
@@ -676,7 +704,7 @@ namespace WCSC
 
         private void button6_Click(object sender, EventArgs e)
         {
-            PrintReport pr = new PrintReport();
+            Report_Form_Print pr = new Report_Form_Print();
             pr.Show();
         }
 

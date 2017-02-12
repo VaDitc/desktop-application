@@ -96,7 +96,6 @@ C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debu
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.Check_Connection_with_Controllers.resources
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.Form1.resources
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.Login.resources
-C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.PrintReport.resources
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.Properties.Resources.resources
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.Settings.resources
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.WeightDay.resources
@@ -108,4 +107,9 @@ C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debu
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\RdlCompile.compiled
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.exe
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.pdb
+C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.Report_Form_Print.resources
 C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.csprojResolveAssemblyReference.cache
+C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\bin\Debug\WCSC.exe.manifest
+C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\bin\Debug\WCSC.application
+C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.exe.manifest
+C:\Users\Александра\Documents\GitHub\desktop-application\WCSC\obj\Debug\WCSC.application
